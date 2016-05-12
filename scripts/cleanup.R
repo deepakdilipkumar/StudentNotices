@@ -23,9 +23,19 @@ dfEmails$ss <- sapply(strsplit(dfEmails$Time,":"), "[[", 3)
 
 
 dfL12mapping <- read.csv('data/level1to2.csv', as.is=TRUE)
-dfEmails2 <- merge(dfEmails, dfL12mapping,by.x = "SenderMapped", by.y = "Level1")
+dfEmails <- merge(dfEmails, dfL12mapping,by.x = "SenderMapped", by.y = "Level1")
+names(dfEmails)[names(dfEmails) == 'Level2'] <- 'Category'
 
-write.csv(dfEmails2,file = "data/emaildatacleaned.csv",quote = T,row.names = F)
+dfEmails$AcadYear <- dfEmails$YYYY
+dfEmails$AcadYear[dfEmails$MM<=3] <- dfEmails$YYYY[dfEmails$MM<=3] -1
+
+
+
+
+write.csv(dfEmails,file = "data/emaildatacleaned.csv",quote = T,row.names = F)
+save("dfEmails", file="data//emaildatacleaned.RData")
+
+
 
 
 
