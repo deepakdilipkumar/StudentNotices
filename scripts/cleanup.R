@@ -16,9 +16,9 @@ dfEmails$DD <- day(dfEmails$Date)
 dfEmails$MM <- month(dfEmails$Date)
 dfEmails$YYYY <- year(dfEmails$Date)
 
-dfEmails$hh <- sapply(strsplit(dfEmails$Time,":"), "[[", 1)
-dfEmails$mm <- sapply(strsplit(dfEmails$Time,":"), "[[", 2)
-dfEmails$ss <- sapply(strsplit(dfEmails$Time,":"), "[[", 3)
+dfEmails$hh <- as.numeric(sapply(strsplit(dfEmails$Time,":"), "[[", 1))
+dfEmails$mm <- as.numeric(sapply(strsplit(dfEmails$Time,":"), "[[", 2))
+dfEmails$ss <- as.numeric(sapply(strsplit(dfEmails$Time,":"), "[[", 3))
 
 
 
