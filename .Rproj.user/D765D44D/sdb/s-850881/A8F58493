@@ -1,0 +1,17 @@
+{
+    "contents" : "\ndfEmails <- read.csv(\"data/emaildatacleaned.csv\")\n",
+    "created" : 1463079909232.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "3523956920",
+    "id" : "A8F58493",
+    "lastKnownWriteTime" : 32651543981785193,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
