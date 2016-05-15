@@ -14,7 +14,7 @@ ggYearly <- ggplot(dfYearlyTotals[dfYearlyTotals$Year<2016,], aes(x = Year,
                    )
 ggYearly + geom_line()
 
-
+ggsave(file="VariationAcrossYears.png")
 
 # Days of the Year
 dfDaysoftheYear <- with(dfEmails[dfEmails$YYYY<2016,], aggregate(Subject, by=list(Month = MM, Day = DD), FUN=length))
@@ -36,7 +36,7 @@ ggDaysoftheYear + geom_point(colour = "#0077BB", size = 10, shape = 15) +
                limits = c(as.Date("2000-01-01", format="%Y-%m-%d"), as.Date("2000-12-01", format="%d-%m-%Y")),
                labels = date_format("%b"))
 
-
+ggsave(file="DaysOfTheYear.png")
 
 # Time of the Day
 dfTimeoftheDay <- with(dfEmails, aggregate(Subject, by=list(hh=hh, mm=mm), FUN=length))
@@ -63,3 +63,4 @@ ggDaysoftheYear + geom_tile() +
                    limits = c(ISOdate(2001, 1, 1, hour=1, tz = ""), ISOdate(2001, 1, 1, hour=23, tz = "")),
                    labels = date_format("%H"))
 
+ggsave(file="TimeOfTheDay.png")
