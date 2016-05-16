@@ -27,7 +27,7 @@ dfEmails <- merge(dfEmails, dfL12mapping,by.x = "SenderMapped", by.y = "Level1")
 names(dfEmails)[names(dfEmails) == 'Level2'] <- 'Category'
 
 dfEmails$AcadYear <- dfEmails$YYYY
-dfEmails$AcadYear[dfEmails$MM<=3] <- dfEmails$YYYY[dfEmails$MM<=3] -1
+dfEmails$AcadYear[dfEmails$MM<=4] <- dfEmails$YYYY[dfEmails$MM<=4] -1
 
 
 

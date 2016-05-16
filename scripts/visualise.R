@@ -14,9 +14,10 @@ ggYearly <- ggplot(dfYearlyTotals[dfYearlyTotals$Year<2016,], aes(x = Year,
                    )
 ggYearly + geom_line()
 
-
+ggsave(file="VariationAcrossYears.jpeg")
 
 # Days of the Year
+
 dfDaysoftheYear <- with(dfEmails[dfEmails$YYYY<2016,], aggregate(Subject, by=list(Month = MM, Day = DD), FUN=length))
 ggDaysoftheYear <- ggplot(dfDaysoftheYear, aes(y = as.Date(paste0("2000-",Month,"-01")),
                                                x = Day,
@@ -36,10 +37,11 @@ ggDaysoftheYear + geom_point(colour = "#0077BB", size = 10, shape = 15) +
                limits = c(as.Date("2000-01-01", format="%Y-%m-%d"), as.Date("2000-12-01", format="%d-%m-%Y")),
                labels = date_format("%b"))
 
+ggsave(file="DaysOfTheYear.jpeg")
 
-
-# Time of the Day
-dfTimeoftheDay <- with(dfEmails, aggregate(Subject, by=list(hh=hh, mm=mm), FUN=length))
+# Time of the Day Everyone
+dfTimeoftheDay <- with(dfEmails[dfEmails$SenderMapped!="Mailman",], aggregate(Subject, by=list(hh=hh, mm=mm), FUN=length))  # Removing Mailman which is skewing the graph to 6am
+ 
 
 start <- ISOdate(2001, 1, 1, hour=0, tz = "")
 ggDaysoftheYear <- ggplot(dfTimeoftheDay, aes(x = start+60*(60*hh + mm),
@@ -63,3 +65,61 @@ ggDaysoftheYear + geom_tile() +
                    limits = c(ISOdate(2001, 1, 1, hour=1, tz = ""), ISOdate(2001, 1, 1, hour=23, tz = "")),
                    labels = date_format("%H"))
 
+ggsave(file="TimeOfTheDay.jpeg")
+
+# Time of the Day Students
+dfEmailsStudents <- dfEmails[dfEmails$Category=="Student Reps",]
+dfTimeoftheDay <- with(dfEmailsStudents, aggregate(Subject, by=list(hh=hh, mm=mm), FUN=length))
+
+start <- ISOdate(2001, 1, 1, hour=0, tz = "")
+ggDaysoftheYear <- ggplot(dfTimeoftheDay, aes(x = start+60*(60*hh + mm),
+                                              y=0,
+                                              alpha = x/max(dfTimeoftheDay$x))
+                          )
+
+ggDaysoftheYear + geom_tile() + 
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(), 
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank(), 
+        axis.ticks.x = element_blank(), 
+        axis.text.y = element_blank(),
+        panel.background = element_rect(fill = "white"),
+        legend.position="none")  +
+  scale_y_continuous(expand = c(0.01,0)) +
+  scale_x_datetime(breaks = date_breaks("1 hour"),
+                   limits = c(ISOdate(2001, 1, 1, hour=1, tz = ""), ISOdate(2001, 1, 1, hour=23, tz = "")),
+                   labels = date_format("%H"))
+
+ggsave(file="TimeOfTheDayStudents.jpeg")
+
+# Time of the Day Faculty/Staff
+temp <- dfEmails[dfEmails$Category!="Student Reps",]
+dfEmailsNonStudents <- temp[temp$SenderMapped!="Mailman",]
+dfTimeoftheDay <- with(dfEmailsNonStudents, aggregate(Subject, by=list(hh=hh, mm=mm), FUN=length))
+
+start <- ISOdate(2001, 1, 1, hour=0, tz = "")
+ggDaysoftheYear <- ggplot(dfTimeoftheDay, aes(x = start+60*(60*hh + mm),
+                                              y=0,
+                                              alpha = x/max(dfTimeoftheDay$x))
+                          )
+
+ggDaysoftheYear + geom_tile() + 
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(), 
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank(), 
+        axis.ticks.x = element_blank(), 
+        axis.text.y = element_blank(),
+        panel.background = element_rect(fill = "white"),
+        legend.position="none")  +
+  scale_y_continuous(expand = c(0.01,0)) +
+  scale_x_datetime(breaks = date_breaks("1 hour"),
+                   limits = c(ISOdate(2001, 1, 1, hour=1, tz = ""), ISOdate(2001, 1, 1, hour=23, tz = "")),
+                   labels = date_format("%H"))
+
+ggsave(file="TimeOfTheDayFacultyStaff.jpeg")

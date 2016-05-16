@@ -20,12 +20,12 @@ DRegistrar,Registrar
 Executive AAC,Misc
 Executive Civil,Misc
 Executive Electrical,Misc
-GS Cult,GS
-GS Sports,GS
-GS Tech,GS
-GSAA,GS
-GSAA PG,GS
-GSHA,GS
+GS Cult,Student Reps
+GS Sports,Student Reps
+GS Tech,Student Reps
+GSAA,Student Reps
+GSAA PG,Student Reps
+GSHA,Student Reps
 Head BSBE,DepartmentHeads
 Head CC,DepartmentHeads
 Head CDEEP,DepartmentHeads
@@ -40,7 +40,7 @@ Head MEMS,DepartmentHeads
 Head Physics,DepartmentHeads
 Head SAIF,DepartmentHeads
 Head SOM,DepartmentHeads
-Insight Chief-Ed,Insight
+Insight Chief-Ed,Student Reps
 Librarian,Misc
 Mailman,Misc
 Other,Misc
