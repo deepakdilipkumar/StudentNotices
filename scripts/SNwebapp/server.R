@@ -23,8 +23,8 @@ shinyServer(function(input, output) {
   })
   
   output$dateRangeText  <- renderText({
-    paste("input$dateRange is", 
-          paste(as.character(input$dateRange[1]), collapse = " to ")
+    paste("Input date range is", 
+          paste(as.character(input$dateRange), collapse = " to ")
     )
   })
   
