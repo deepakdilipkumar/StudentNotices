@@ -5,7 +5,9 @@ require(scales)
 
 load("data//emaildatacleaned.RData") #dfEmails
 
-
+cols <- names(dfEmails)
+dfEmails <- data.frame(dfEmails,weekdays(as.Date(dfEmails$Date)))
+names(dfEmails) <- c(cols,"Day")
 dfYearlyTotals <- with(dfEmails, aggregate(Subject, by=list(Year = YYYY, By = Category), FUN=length))
 
 ggYearly <- ggplot(dfYearlyTotals[dfYearlyTotals$Year<2016,], aes(x = Year,
@@ -95,6 +97,11 @@ ggDaysoftheYear + geom_tile() +
 
 ggsave(file="TimeOfTheDayStudents.jpeg")
 
+jpeg(file="DaysOfTheWeekStudents.jpeg")
+barplot(table(factor(dfEmailsStudents$Day,levels=c("Mon","Tue","Wed","Thu","Fri","Sat","Sun"))), main="Total Number of Mails by Students",xlab="Number of Mails",ylab="Day of the Week",col="forestgreen")
+dev.off()
+
+
 # Time of the Day Faculty/Staff
 temp <- dfEmails[dfEmails$Category!="Student Reps",]
 dfEmailsNonStudents <- temp[temp$SenderMapped!="Mailman",]
@@ -123,3 +130,7 @@ ggDaysoftheYear + geom_tile() +
                    labels = date_format("%H"))
 
 ggsave(file="TimeOfTheDayFacultyStaff.jpeg")
+
+jpeg(file="DaysOfTheWeekFacultyStaff.jpeg")
+barplot(table(factor(dfEmailsNonStudents$Day,levels=c("Mon","Tue","Wed","Thu","Fri","Sat","Sun"))), main="Total Number of Mails by Faculty/Staff",xlab="Number of Mails",ylab="Day of the Week",col="forestgreen")
+dev.off()
